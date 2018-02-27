@@ -1,0 +1,14 @@
+<h1> New Person </h1>
+<form method='post'>
+    {% csrf_token %}
+    <h3> Person </h3>
+    {{ person_form.as_p }}
+    <h3> Email </h3>
+    {{ email_form.as_p }}
+    <h3> Phone </h3>
+    {{ phone_form.as_p }}
+    <h3> Address </h3>
+    {{ address_form.as_p }}
+    <input type='submit' value='Sumbit' />
+</form>
+

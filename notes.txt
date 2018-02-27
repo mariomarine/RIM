@@ -1,0 +1,26 @@
+MVP:
+- Front End
+- Able to create Rental form
+    - Select Person
+    - Select Gear
+    - Select Package
+    - Time Frame
+- Able to turn in Rental form
+- Customer
+- Time with Rental Dates
+- Note Field
+- Terms and Conditions
+- Credit Card note
+- Duration separate from package type
+- Age
+- Guardian field if they are under a certain age? (What about not for you?)
+
+
+Features:
+- Defects Field (on Gear)
+- Barcode
+- Excel export
+- Reservations
+- Fill in sizing info?
+- Modified by/Created by
+
