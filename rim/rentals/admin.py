@@ -18,7 +18,7 @@ class PhoneInline(admin.StackedInline):
     model = Phone
 
 class CustomerAdmin(admin.ModelAdmin):
-    fields = ['first_name', 'last_name', 'birthday'] 
+    fields = ['first_name', 'last_name', 'birthday', 'note'] 
     search_fields = ['first_name', 'last_name', 'birthday']
     inlines = [EmailInline, PhoneInline, AddressInline]
 

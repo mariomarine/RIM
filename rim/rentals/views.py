@@ -65,3 +65,15 @@ def new_customer(request):
         address_form = AddressForm()
     return render(request, 'rentals/new_customer.html', {'customer_form': customer_form, 'email_form': email_form, 'phone_form': phone_form, 'address_form': address_form})
 
+def choose_customer(request):
+    if request.method == 'POST':
+        customer_form = CustomerForm(request.POST)
+
+        if customer_form.is_valid():
+            customer = Customer.objects.filter(first_name=customer_form.cleaned_data['first_name'], last_name=customer_form.cleaned_data['last_name'], birthday=customer_form.cleaned_data['birthday'])
+            request.session['customer'] = customer.get().id
+            return HttpResponseRedirect('rent.html')
+    else:
+        customer_form = CustomerForm()
+    return render(request, 'rentals/choose_customer.html', {'customer_form': customer_form})
+
