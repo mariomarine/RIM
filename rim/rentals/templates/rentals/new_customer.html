@@ -1,8 +1,8 @@
-<h1> New Person </h1>
+<h1> New Customer </h1>
 <form method='post'>
     {% csrf_token %}
-    <h3> Person </h3>
-    {{ person_form.as_p }}
+    <h3> Customer </h3>
+    {{ customer_form.as_p }}
     <h3> Email </h3>
     {{ email_form.as_p }}
     <h3> Phone </h3>

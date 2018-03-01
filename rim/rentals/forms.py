@@ -1,39 +1,49 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Person, Email, Phone, Address, Rental
+from .models import Customer, Email, Phone, Address, Rental, Gear, PackageRental, PackageValue
 
-# class RentalForm(forms.Form):
-    # first_name = forms.CharField(label='First Name')
-    # last_name = forms.CharField(label='Last Name')
-    # email_address = forms.CharField(label='Email Address')
-
-class NewPersonForm(forms.Form):
-    first_name = forms.CharField(label='First Name')
-    last_name = forms.CharField(label='Last Name')
-    email_address = forms.CharField(label='Email Address')
-
-class PersonForm(ModelForm):
+class CustomerForm(ModelForm):
     class Meta:
-        model = Person
+        model = Customer
         exclude = ['note']
+        widgets = {'birthday': forms.DateInput(attrs={'type':'date'})}
 
 class EmailForm(ModelForm):
     class Meta:
         model = Email
-        exclude = ['person']
+        exclude = ['customer']
 
 class PhoneForm(ModelForm):
     class Meta:
         model = Phone
-        exclude = ['person']
+        exclude = ['customer']
 
 class AddressForm(ModelForm):
     class Meta:
         model = Address
-        exclude = ['person']
+        exclude = ['customer']
 
 class RentalForm(ModelForm):
     class Meta:
         model = Rental
+        exclude = ['customer', 'returned']
+        widgets = {
+            'rental_date': forms.DateInput(attrs={'type':'date'}),
+            'return_date': forms.DateInput(attrs={'type':'date'})
+        }
+
+class GearForm(ModelForm):
+    class Meta:
+        model = Gear
+        exclude = ['package_rental']
+
+class PackageRentalForm(ModelForm):
+    class Meta:
+        model = PackageRental
+        exclude = ['rental']
+
+class PackageValueForm(ModelForm):
+    class Meta:
+        model = PackageValue
         exclude = []
 

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Person, Rental, Gear, Email, Phone, Address, PackageValue, PackageRental
+from .models import Customer, Rental, Gear, Email, Phone, Address, PackageValue, PackageRental
 
 # Register your models here.
 admin.site.register(Gear)
@@ -17,7 +17,7 @@ class AddressInline(admin.StackedInline):
 class PhoneInline(admin.StackedInline):
     model = Phone
 
-class PersonAdmin(admin.ModelAdmin):
+class CustomerAdmin(admin.ModelAdmin):
     fields = ['first_name', 'last_name', 'birthday'] 
     search_fields = ['first_name', 'last_name', 'birthday']
     inlines = [EmailInline, PhoneInline, AddressInline]
@@ -25,17 +25,24 @@ class PersonAdmin(admin.ModelAdmin):
 class GearInline(admin.StackedInline):
     model = Gear
 
-class RentalAdmin(admin.ModelAdmin):
-    fields = ['person', 'rental_date', 'return_date', 'returned'] 
-    search_fields = ['rental_date', 'return_date', 'person__first_name', 'person__last_name', 'gear__brand', 'gear__gear_type', 'gear__size', 'gear__description']
+class PackageRentalAdmin(admin.ModelAdmin):
+    fields = ['package', 'quantity', 'rental']
     inlines = [GearInline]
-    list_display = ('rental_date', 'return_date', 'returned')
+    list_display = ('package', 'quantity', 'rental')
+
+class PackageRentalInline(admin.StackedInline):
+    model = PackageRental
+    readonly_fields = ('changeform_link', )
+
+class RentalAdmin(admin.ModelAdmin):
+    fields = ['customer', 'rental_date', 'return_date', 'returned', 'agree_to_tc'] 
+    inlines = [PackageRentalInline]
+    search_fields = ['rental_date', 'return_date', 'customer__first_name', 'customer__last_name']
+    list_display = ('customer', 'rental_date', 'return_date', 'returned')
     list_filter = ('returned', )
 
-class PackageAdmin(admin.ModelAdmin):
-    fields = ['package', 'rental']
-
-admin.site.register(Person, PersonAdmin)
+admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Rental, RentalAdmin)
-admin.site.register(PackageRental, PackageAdmin)
+admin.site.register(PackageRental, PackageRentalAdmin)
+admin.site.register(PackageValue)
 
