@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    command: python3 rim/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+      - ./rim/db.sqlite3:/code/rim/db.sqlite3
+    ports:
+      - "8000:8000"
+

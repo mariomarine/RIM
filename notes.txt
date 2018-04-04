@@ -1,17 +1,13 @@
 MVP:
-- Front End
 - Able to create Rental form
     - Select Person
-    - Select Gear
     - Select Package
     - Time Frame
-- Able to turn in Rental form
-- Customer
+- Shows and emails link to user/employee
 - Time with Rental Dates
-- Note Field
+- Rental Note Field
 - Terms and Conditions
 - Credit Card note
-- Duration separate from package type
 - Age
 - Guardian field if they are under a certain age? (What about not for you?)
 
