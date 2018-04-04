@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
-from .forms import RentalForm, CustomerForm, EmailForm, PhoneForm, AddressForm, GearForm, PackageRentalForm
-from .models import Customer
+from .forms import RentalForm, CustomerForm, EmailForm, PhoneForm, AddressForm, GearForm, PackageRentalForm, ChooseCustomerForm
+from .models import Customer, Email
 
 # Create your views here.
 def index(request):
@@ -15,6 +15,23 @@ def index(request):
 
 def thanks(request):
     return render(request, 'rentals/thanks.html', {})
+
+def choose_customer(request):
+    if request.method == 'POST':
+        chose_cust = ChooseCustomerForm(request.POST)
+        errored = chose_cust.is_valid()
+        email = Email.objects.get(
+            email_address = chose_cust.cleaned_data['email_address'],
+            customer__in = Customer.objects.filter(
+                first_name = chose_cust.cleaned_data['first_name'],
+                last_name = chose_cust.cleaned_data['last_name']
+            )
+        )
+        request.session['customer'] = email.customer_id
+        return HttpResponseRedirect('rent.html')
+
+    choose_customer_form = ChooseCustomerForm()
+    return render(request, 'rentals/choose_customer.html', {'choose_customer_form': choose_customer_form})
 
 def rent(request):
     if request.method == 'POST':
