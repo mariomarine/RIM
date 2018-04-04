@@ -5,10 +5,8 @@ MVP:
     - Time Frame
 - Shows and emails link to user/employee
 - Time with Rental Dates
-- Rental Note Field
 - Terms and Conditions
 - Credit Card note
-- Age
 - Guardian field if they are under a certain age? (What about not for you?)
 
 
