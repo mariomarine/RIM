@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Form
-from .models import Customer, Email, Phone, Address, Rental, Gear, PackageRental, PackageValue
+from .models import Customer, Email, Phone, Address, Rental, Gear, RentalGear, PackageValue
 
 class CustomerForm(ModelForm):
     class Meta:
@@ -22,24 +22,37 @@ class AddressForm(ModelForm):
     class Meta:
         model = Address
         exclude = ['customer']
+    def __init__(self, *args, **kwargs):
+        super(AddressForm, self).__init__(*args, **kwargs)
+        self.fields['address_1'].required = False
+        self.fields['address_2'].required = False
+        self.fields['city'].required = False
+        self.fields['state'].required = False
+        self.fields['zip_code'].required = False
 
 class RentalForm(ModelForm):
     class Meta:
         model = Rental
-        exclude = ['customer', 'returned']
+        exclude = ['returned']
         widgets = {
             'rental_date': forms.DateInput(attrs={'type':'date'}),
             'return_date': forms.DateInput(attrs={'type':'date'})
         }
+    def __init__(self, *args, **kwargs):
+        super(RentalForm, self).__init__(*args, **kwargs)
+        # self.fields['customer'].disabled = True
+        # self.fields['returned'].disabled = True
+        # self.fields['returned'].required = False
+        self.fields['note'].required = False
 
 class GearForm(ModelForm):
     class Meta:
         model = Gear
-        exclude = ['package_rental']
+        fields = '__all__'
 
-class PackageRentalForm(ModelForm):
+class RentalGearForm(ModelForm):
     class Meta:
-        model = PackageRental
+        model = RentalGear
         exclude = ['rental']
 
 class PackageValueForm(ModelForm):

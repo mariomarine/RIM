@@ -1,13 +1,8 @@
 <h1> Rent </h1>
 <form method='post'>
-    <h3> Package </h3>
-    {{ package_form }}
-    <h3> Gear </h3>
-    {{ gear_form }}
+    {% csrf_token %}
     <h3> Rental </h3>
-    {{ rental_form }}
-    <br />
-    <br />
+    {{ rental_form.as_p }}
     <input type='submit' value='Sumbit' />
 </form>
 

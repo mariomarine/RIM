@@ -38,43 +38,47 @@ class Address(models.Model):
     state = models.CharField(max_length=15)
     zip_code = models.CharField(max_length=5)
 
-class Rental(models.Model):
-    def __str__(self):
-        return '{} - {}'.format(self.rental_date, self.return_date)
-    customer = models.ForeignKey(Customer)
-    rental_date = models.DateField('start date')
-    return_date = models.DateField('end date')
-    returned = models.BooleanField(default=False)
-    agree_to_tc = models.BooleanField(default=False)
-    note = models.CharField(max_length=200)
-
 class PackageValue(models.Model):
     def __str__(self):
         return '{}'.format(self.package)
     package = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
-class PackageRental(models.Model):
+class Rental(models.Model):
+    def __str__(self):
+        return '{} - {}'.format(self.rental_date, self.return_date)
+    customer = models.ForeignKey(Customer)
     package = models.ForeignKey(PackageValue)
-    quantity = models.IntegerField()
-    rental = models.ForeignKey(Rental)
-    def changeform_link(self):
-        if self.id:
-            changeform_url = urlresolvers.reverse(
-                'admin:rentals_packagerental_change', args=(self.id,)
-            )
-            return u'<a href="%s" target="_blank">Rental Package</a>' % changeform_url
-        return u''
-    changeform_link.allow_tags = True
-    changeform_link.short_description = 'Link'
+    rental_date = models.DateField('start date')
+    return_date = models.DateField('end date')
+    returned = models.BooleanField(default=False)
+    agree_to_tc = models.BooleanField(default=False)
+    note = models.CharField(max_length=200)
 
 class Gear(models.Model):
     def __str__(self):
-        return '{}'.format(self.description)
-    package_rental = models.ForeignKey(PackageRental)
+        return '{} - {} - {} {}'.format(self.gear_type, self.category, self.make, self.model)
     gear_type = models.CharField(max_length=10)
-    brand = models.CharField(max_length=20)
-    description = models.CharField(max_length=200)
+    category = models.CharField(max_length=10)
+    make = models.CharField(max_length=20)
+    model = models.CharField(max_length=20)
     size = models.CharField(max_length=10)
-    note = models.CharField(max_length=200)
+    weight_range = models.CharField(max_length=10, blank=True)
+    color = models.CharField(max_length=10)
+    description = models.CharField(max_length=200, blank=True)
+    note = models.CharField(max_length=200, blank=True)
+
+class RentalGear(models.Model):
+    quantity = models.IntegerField()
+    rental = models.ForeignKey(Rental)
+    gear = models.ForeignKey(Gear)
+    def changeform_link(self):
+        if self.id:
+            changeform_url = urlresolvers.reverse(
+                'admin:rentals_rentalgear_change', args=(self.id,)
+            )
+            return u'<a href="%s" target="_blank">Rental Gear</a>' % changeform_url
+        return u''
+    changeform_link.allow_tags = True
+    changeform_link.short_description = 'Link'
 
