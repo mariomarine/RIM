@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Form
+from django.forms import ModelForm, Form, DateTimeField
 from .models import Customer, Email, Phone, Address, Rental, Gear, RentalGear, PackageValue
 
 class CustomerForm(ModelForm):
@@ -31,13 +31,11 @@ class AddressForm(ModelForm):
         self.fields['zip_code'].required = False
 
 class RentalForm(ModelForm):
+    rental_date = forms.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
+    return_date = forms.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
     class Meta:
         model = Rental
         exclude = ['returned']
-        widgets = {
-            'rental_date': forms.DateInput(attrs={'type':'date'}),
-            'return_date': forms.DateInput(attrs={'type':'date'})
-        }
     def __init__(self, *args, **kwargs):
         super(RentalForm, self).__init__(*args, **kwargs)
         # self.fields['customer'].disabled = True
