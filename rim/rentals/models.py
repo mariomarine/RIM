@@ -52,7 +52,6 @@ class Rental(models.Model):
     rental_date = models.DateTimeField('start date')
     return_date = models.DateTimeField('end date')
     returned = models.BooleanField(default=False)
-    agree_to_tc = models.BooleanField(default=False)
     note = models.CharField(max_length=200)
 
 class Gear(models.Model):
