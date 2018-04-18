@@ -3,11 +3,24 @@
     {% csrf_token %}
     <h3> Rental </h3>
     {{ rental_form.as_p }}
-    <p>By clicking Submit, you agree to Terms and Conditions</p>
+    <p>By clicking Submit, you agree to <a id='t_and_c' href='#'>Terms and Conditions</a></p>
     <input type='submit' value='Sumbit' />
 </form>
 <script type='text/javascript'>
-    document.getElementById('id_rental_date').type='datetime-local';
-    document.getElementById('id_return_date').type='datetime-local';
+    window.onload = function() {
+        document.getElementById('id_rental_date').type='datetime-local';
+        document.getElementById('id_return_date').type='datetime-local';
+        var t_and_c = document.getElementById('t_and_c');
+        t_and_c.onclick = function() {
+            alert(`THANK YOU for renting equipment from us!  By accepting these conditions, you as the renter, have indicated your full understanding and acceptance of the terms of our rental agreement:
+
+            I will keep possession and maintain the equipment during the terms of the rental period, and will be responsible for additional fees if the equipment is kept past the due date. If the equipment is damaged (beyond normal wear and tear from intended use), or is returned excessively dirty, I will compensate Gannett Peak Sports for any costs to replace equipment or return it to rentable condition. If I fail to return the equipment, I will compensate Gannett Peak Sports for the equipment’s full retail price.
+
+            I hereby assert my ability to properly use the equipment for the purpose for which it was designed. 
+
+            I waive all claims for damage, loss(es), injury, or death which may result from the rented equipment and fully release Gannett Peak Sports and its employees from any liability.
+            `);
+        }
+    }
 </script>
 
