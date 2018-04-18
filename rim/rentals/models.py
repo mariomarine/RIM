@@ -66,6 +66,7 @@ class Gear(models.Model):
     color = models.CharField(max_length=10)
     description = models.CharField(max_length=200, blank=True)
     note = models.CharField(max_length=200, blank=True)
+    serial = models.CharField(max_length=24, blank=True)
 
 class RentalGear(models.Model):
     quantity = models.IntegerField()
