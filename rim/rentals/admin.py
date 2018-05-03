@@ -31,7 +31,7 @@ class RentalGearInline(admin.StackedInline):
     readonly_fields = ('changeform_link', )
 
 class RentalAdmin(admin.ModelAdmin):
-    fields = ['customer', 'package', 'rental_date', 'return_date', 'returned', 'agree_to_tc'] 
+    fields = ['customer', 'package', 'rental_date', 'return_date', 'returned'] 
     inlines = [RentalGearInline]
     search_fields = ['rental_date', 'return_date', 'customer__first_name', 'customer__last_name']
     list_display = ('customer', 'rental_date', 'return_date', 'returned')
