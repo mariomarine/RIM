@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.core.urlresolvers import reverse
 
 from .models import Customer, Rental, Gear, Email, Phone, Address, PackageValue, RentalGear
 
@@ -20,9 +21,13 @@ class PhoneInline(admin.StackedInline):
 class CustomerAdmin(admin.ModelAdmin):
     def get_email(self, obj):
         return Email.objects.get(pk=obj.id)
+    def create_rental(self, obj):
+        return '<a href="{}?customer={}">Create Rental</a>'.format(reverse('admin:rentals_rental_add'),obj.id)
+    create_rental.short_description = 'Create Rental'
+    create_rental.allow_tags = True
     fields = ['first_name', 'last_name', 'birthday', 'note'] 
     search_fields = ['first_name', 'last_name', 'birthday']
-    list_display = ('first_name', 'last_name', 'get_email')
+    list_display = ('first_name', 'last_name', 'get_email', 'create_rental')
     inlines = [EmailInline, PhoneInline, AddressInline]
 
 class RentalGearAdmin(admin.ModelAdmin):
