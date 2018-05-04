@@ -1,11 +1,5 @@
 MVP:
-- Able to create Rental form
-    - Select Person
-    - Select Package
-    - Time Frame
 - Shows and emails link to user/employee
-- Time with Rental Dates
-- Terms and Conditions
 - Credit Card note
 - Guardian field if they are under a certain age? (What about not for you?)
 

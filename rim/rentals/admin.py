@@ -18,8 +18,11 @@ class PhoneInline(admin.StackedInline):
     model = Phone
 
 class CustomerAdmin(admin.ModelAdmin):
+    def get_email(self, obj):
+        return Email.objects.get(pk=obj.id)
     fields = ['first_name', 'last_name', 'birthday', 'note'] 
     search_fields = ['first_name', 'last_name', 'birthday']
+    list_display = ('first_name', 'last_name', 'get_email')
     inlines = [EmailInline, PhoneInline, AddressInline]
 
 class RentalGearAdmin(admin.ModelAdmin):
