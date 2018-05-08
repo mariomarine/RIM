@@ -12,8 +12,8 @@ class Customer(models.Model):
         return '{} {}'.format(self.first_name, self.last_name)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    birthday = models.DateField()
-    note = models.CharField(max_length=200)
+    birthday = models.DateField(blank=True)
+    note = models.CharField(max_length=200, blank=True)
 
 class Email(models.Model):
     def __str__(self):
