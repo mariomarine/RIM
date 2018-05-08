@@ -6,8 +6,9 @@ from django.core.urlresolvers import reverse
 
 from .models import Customer, Rental, Gear, Email, Phone, Address, PackageValue, RentalGear
 
-# Register your models here.
-admin.site.register(Gear)
+class GearAdmin(admin.ModelAdmin):
+    fields = ['gear_type', 'category', 'make', 'model', 'size', 'weight_range', 'color', 'description', 'note', 'serial']
+    search_fields = ['gear_type', 'category', 'make', 'model', 'size', 'weight_range', 'color', 'description', 'note', 'serial']
 
 class EmailInline(admin.StackedInline):
     model = Email
@@ -46,6 +47,7 @@ class RentalAdmin(admin.ModelAdmin):
     list_filter = ('returned', )
 
 admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Gear, GearAdmin)
 admin.site.register(Rental, RentalAdmin)
 admin.site.register(RentalGear, RentalGearAdmin)
 admin.site.register(PackageValue)
